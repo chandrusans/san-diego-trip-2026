@@ -126,6 +126,40 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
   .stops li{grid-template-columns:64px 1fr}
 }
 @media (prefers-reduced-motion:no-preference){ .todo label{transition:background .15s} }
+
+/* tabs */
+.tabbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:4px;padding-block:10px;border-bottom:1px solid var(--line);margin-top:6px}
+.tabbar button{font:inherit;font-weight:600;font-size:.95rem;color:var(--muted);background:none;border:1px solid transparent;border-radius:999px;padding:7px 16px;cursor:pointer}
+.tabbar button[aria-selected="true"]{color:var(--surface);background:var(--ink)}
+.tabbar button:hover{border-color:var(--line)}
+/* explore */
+.filters{display:grid;gap:10px;margin-bottom:18px}
+.chiprow{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chiprow .label{margin-right:4px;min-width:64px}
+.fchip{font:inherit;font-size:.86rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:4px 12px;cursor:pointer}
+.fchip[aria-pressed="true"]{background:var(--coast);border-color:var(--coast);color:var(--surface)}
+.count{font-size:.88rem;color:var(--muted)}
+.things{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.thing{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:8px;align-content:start;min-width:0}
+.thing .head{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.thing h3{font-size:1.08rem}
+.thing .area{font-size:.8rem;color:var(--muted)}
+.thing .price{font-variant-numeric:tabular-nums;font-weight:600;font-size:.95rem}
+.thing .price.free{color:var(--good)}
+.thing p{font-size:.92rem}
+.ages{display:flex;flex-wrap:wrap;gap:4px}
+.age{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:2px 6px;background:var(--bg);border:1px solid var(--line);color:var(--muted)}
+.age.teen{color:var(--desert);border-color:color-mix(in srgb,var(--desert) 45%,var(--line))}
+.age.adult{color:var(--sage);border-color:color-mix(in srgb,var(--sage) 45%,var(--line))}
+.age.kid{color:var(--coast);border-color:color-mix(in srgb,var(--coast) 45%,var(--line))}
+.flag{font-size:.8rem;color:var(--warn)}
+.inplan{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--good);white-space:nowrap}
+.thing .links{font-size:.85rem;display:flex;gap:12px;flex-wrap:wrap}
+.swaps{display:grid;gap:10px;margin-bottom:22px}
+.swap{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;display:grid;grid-template-columns:96px 1fr;gap:10px}
+.swap .d{font-family:var(--mono);font-size:.78rem;color:var(--desert);padding-top:3px}
+.swap p{font-size:.93rem}
+@media (max-width:640px){.swap{grid-template-columns:1fr;gap:2px}}
 </style>
 </head>
 <body>
@@ -142,10 +176,17 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
     <span class="chip">15-seat van</span>
     <span class="chip">Thanksgiving: Thu Nov 26</span>
   </div>
+</header>
+
+<div class="tabbar" role="tablist" aria-label="Trip sections">
+  <button type="button" role="tab" id="t-plan" aria-controls="tab-plan" aria-selected="true">Trip plan</button>
+  <button type="button" role="tab" id="t-explore" aria-controls="tab-explore" aria-selected="false">Things to do</button>
+</div>
+<div id="tab-plan" role="tabpanel" aria-labelledby="t-plan">
   <nav class="toc" aria-label="Sections">
     <a href="#book">Book now</a><a href="#plan">Day by day</a><a href="#tickets">Tickets &amp; costs</a><a href="#hotels">Hotels &amp; reviews</a><a href="#tips">Travel tips</a>
   </nav>
-</header>
+<div class="tipcard" style="margin-top:16px"><p><b>Traveling with teens?</b> The <a href="#explore" data-goto="explore">Things to do</a> tab lists 35 more options for every age, from sea cave kayaking and go-karts to Disneyland, with ticket prices.</p></div>
 
 <section id="book">
   <h2>Book these first</h2>
@@ -492,6 +533,51 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
   <footer>Prices and hours were checked in October 2026 and can change. Confirm on official sites before buying.</footer>
 </section>
 </div>
+<div id="tab-explore" role="tabpanel" aria-labelledby="t-explore" hidden>
+<section style="margin-top:28px">
+  <h2>Things to do for everyone</h2>
+  <p class="lead">More options in and around San Diego so teens, adults and little kids all get their kind of fun. Prices are 2026 published prices per person unless noted; online is usually cheaper than the gate. Places marked <span class="flag">Closed Thu Nov 26</span> are shut on Thanksgiving Day.</p>
+
+  <h3 style="margin-bottom:10px">Easy swaps so teens get their thrills</h3>
+  <div class="swaps">
+    <div class="swap"><span class="d">SUN NOV 22</span><p>At Belmont Park, buy teens the unlimited Ride &amp; Play Pass and ride the 1925 Giant Dipper wooden coaster while little ones play on the sand.</p></div>
+    <div class="swap"><span class="d">WED NOV 25</span><p>After the Zoo, teens and adults can race at K1 Speed or try iFLY indoor skydiving; both are in or near Mission Valley, close to the hotel.</p></div>
+    <div class="swap"><span class="d">THU NOV 26</span><p>Most museums close for Thanksgiving, but ice skating by the beach at the Hotel del Coronado is open 10 AM–10 PM. Finish with sunset at Sunset Cliffs.</p></div>
+    <div class="swap"><span class="d">FRI NOV 27</span><p>Split up for the morning: teens and adults kayak the La Jolla sea caves or take a surf lesson while little kids do Balboa Park. Or swap the whole day for Disneyland (1.5–2.5 hours each way).</p></div>
+    <div class="swap"><span class="d">SAT NOV 28</span><p>SeaWorld has real coasters for teens (Electric Eel, Manta, Emperor). Alternative: the Safari Park's Wild Holidays lights run Nov 28–29 until 8 PM.</p></div>
+  </div>
+  <p class="note" style="margin:-10px 0 22px">Splitting up with one van: the second group can use rideshare, or plan the split around a single drop-off point.</p>
+
+  <div class="filters" aria-label="Filters">
+    <div class="chiprow" id="f-age"><span class="label">Who</span>
+      <button class="fchip" type="button" data-v="all" aria-pressed="true">Everyone</button>
+      <button class="fchip" type="button" data-v="teen" aria-pressed="false">Teens</button>
+      <button class="fchip" type="button" data-v="adult" aria-pressed="false">Adults</button>
+      <button class="fchip" type="button" data-v="kid" aria-pressed="false">Little kids</button>
+    </div>
+    <div class="chiprow" id="f-cat"><span class="label">Type</span>
+      <button class="fchip" type="button" data-v="all" aria-pressed="true">All</button>
+      <button class="fchip" type="button" data-v="parks" aria-pressed="false">Theme parks &amp; animals</button>
+      <button class="fchip" type="button" data-v="ocean" aria-pressed="false">Ocean &amp; adventure</button>
+      <button class="fchip" type="button" data-v="indoor" aria-pressed="false">Indoor thrills</button>
+      <button class="fchip" type="button" data-v="museum" aria-pressed="false">Museums &amp; landmarks</button>
+      <button class="fchip" type="button" data-v="free" aria-pressed="false">Free &amp; scenic</button>
+      <button class="fchip" type="button" data-v="trip" aria-pressed="false">Day trips</button>
+    </div>
+    <span class="count" id="count" aria-live="polite"></span>
+  </div>
+  <div class="things" id="things"></div>
+
+  <div class="tipcard" style="margin-top:18px">
+    <span class="label">Not available this trip</span>
+    <p><b>Torrey Pines State Natural Reserve</b> is closed for construction until about March 2027 (the beach lots below stay open, $10–25 parking). <b>Gray whale</b> season starts in December; late-November cruises see dolphins and sometimes humpback, fin or minke whales.</p>
+  </div>
+
+  <h3 style="margin:28px 0 10px">Sources for this tab</h3>
+  <div class="sources" id="ex-sources"></div>
+</section>
+</div>
+</div>
 
 <script>
 (function(){
@@ -540,6 +626,117 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
   }
   ['adults','kids','babies','sw','midway'].forEach(function(id){ document.getElementById(id).addEventListener('input',calc); document.getElementById(id).addEventListener('change',calc); });
   calc();
+})();
+</script>
+<script>
+(function(){
+  // ---- Tabs ----
+  var tabs={plan:document.getElementById('tab-plan'),explore:document.getElementById('tab-explore')};
+  function show(name){
+    if(!tabs[name]) name='plan';
+    Object.keys(tabs).forEach(function(k){ tabs[k].hidden=(k!==name); var b=document.getElementById('t-'+k); b.setAttribute('aria-selected',k===name?'true':'false'); });
+    try{ localStorage.setItem('sdtrip-tab',name); }catch(e){}
+  }
+  document.getElementById('t-plan').addEventListener('click',function(){show('plan'); window.scrollTo(0,0);});
+  document.getElementById('t-explore').addEventListener('click',function(){show('explore'); window.scrollTo(0,0);});
+  document.querySelectorAll('[data-goto]').forEach(function(a){ a.addEventListener('click',function(e){ e.preventDefault(); show(a.getAttribute('data-goto')); window.scrollTo(0,0); }); });
+  var start=(location.hash||'').replace('#','');
+  if(start!=='explore'&&start!=='plan'){ try{ start=localStorage.getItem('sdtrip-tab')||'plan'; }catch(e){ start='plan'; } }
+  if(location.hash && location.hash!=='#explore' && location.hash!=='#plan') start='plan';
+  show(start);
+
+  // ---- Things to do ----
+  var S={
+    safari:'https://sdzsafaripark.org/tickets', wild:'https://www.sdzsafaripark.org/wild-holidays',
+    birch:'https://aquarium.ucsd.edu/visit', fleet:'https://www.fleetscience.org/hours-admission',
+    air:'https://sandiegoairandspace.org/visit/visit-the-museum', nat:'https://www.sdnhm.org/visit/',
+    maritime:'https://sdmaritime.org/visit/general-admission/', cabrillo:'https://www.nps.gov/cabr/planyourvisit/fees.htm',
+    trolley:'https://www.trolleytours.com/san-diego/tickets', flagship:'https://www.flagshipsd.com/cruises/san-diego-harbor-tour',
+    seal:'https://www.trolleytours.com/san-diego/seal-tour', whale:'https://sdwhalewatch.com/',
+    petco:'https://www.mlb.com/padres/ballpark/tours/daily', ferry:'https://www.flagshipsd.com/ferry-routes/broadway-pier',
+    skate:'https://hoteldel.com/events/skating/', belmont:'https://lajollamom.com/?p=127667',
+    kayak:'https://www.expedia.com/things-to-do/la-jolla-2-hour-kayak-tour-of-the-7-caves.a4514400.activity-details',
+    surf:'https://www.pacificsurf.com/surfing-lessons-pacific-beach/', ifly:'https://thebettervacation.com/san-diego/ifly-san-diego/',
+    k1:'https://www.k1speed.com/san-diego-location/pricing.html', escape:'https://theabroadguide.com/the-escape-game-san-diego-60-minute-adventure-in-gaslamp-quarter/',
+    segway:'https://www.orbitz.com/things-to-do/balboa-park-segway-tour.a286353.activity-details', chip:'https://californiathroughmylens.com/potato-chip-rock',
+    disney:'https://www.nbcwashington.com/news/national-international/walt-disney-world-disneyland-price-increase/4000260/?amp=1',
+    universal:'https://undercovertourist.com/los-angeles/universal-studios-hollywood-resort/', balloon:'https://www.greetwell.com/us/direct/temecula-shared-hot-air-balloon-flight',
+    mexico:'https://www.dollar.com/~/media/Dollar/Files/TravelCenter/0219-dollar-mexico-flyer.ashx', zoo:'https://thebettervacation.com/san-diego/san-diego-zoo/',
+    seaworld:'https://www.tripster.com/travelguide/landmark/seaworld-san-diego/', midway:'https://lajollamom.com/uss-midway-museum-san-diego',
+    balboa:'https://balboapark.org/plan-your-visit/parking/', campland:'https://www.campland.com/bike-cart-surrey-rental-rates/'
+  };
+  var T=[
+    // Theme parks & animals
+    {n:'SeaWorld San Diego',a:'Mission Bay · 10 min',c:'parks',g:['teen','adult','kid'],p:'Varies by date, about $57–127',d:'Real coasters for teens (Electric Eel, Manta, Emperor), shows and aquariums for everyone, and Christmas lights after dark. Parking from $35.',plan:true,s:'seaworld',q:'SeaWorld San Diego Electric Eel coaster'},
+    {n:'San Diego Zoo',a:'Balboa Park · 10 min',c:'parks',g:['teen','adult','kid'],p:'$76 adult · $66 age 3–11',d:'Pandas, Africa Rocks and the Skyfari aerial tram. Under 3 free; parking $16.',plan:true,s:'zoo',q:'San Diego Zoo Skyfari'},
+    {n:'San Diego Zoo Safari Park',a:'Escondido · 45 min',c:'parks',g:['teen','adult','kid'],p:'$78 adult · $68 age 3–11 ($73/$63 online)',d:'Open-range African savanna seen from a tram. Wild Holidays lights run Nov 28–29 until 8 PM, included. Parking $20.',s:'safari',q:'San Diego Zoo Safari Park savanna'},
+    {n:'Belmont Park',a:'Mission Beach · 15 min',c:'parks',g:['teen','kid'],p:'Free entry · ride pass $48.95 online weekday, $68.95 gate',d:'Beachfront amusement park with the historic Giant Dipper wooden coaster (about $7–8 a ride). Free public lots.',plan:true,s:'belmont',q:'Belmont Park Giant Dipper roller coaster'},
+    // Ocean & adventure
+    {n:'La Jolla sea cave kayak tour',a:'La Jolla Shores · 20 min',c:'ocean',g:['teen','adult'],p:'About $99 per person',d:'Guided 1.5–2 hour paddle to the seven sea caves, often with sea lions alongside. Ages 5+. Water is about 60°F in November, so rent a wetsuit.',s:'kayak',q:'La Jolla sea caves kayak'},
+    {n:'Beginner surf lesson',a:'Pacific Beach · 15 min',c:'ocean',g:['teen','adult'],p:'$98 per person (group of 4+)',d:'90-minute group lesson with board and wetsuit included. Ages 5+ who can swim.',s:'surf',q:'Pacific Beach surf lesson'},
+    {n:'Whale & dolphin cruise',a:'Mission Bay',c:'ocean',g:['teen','adult','kid'],p:'From $58',d:'Daily trips with dolphins and a chance of humpback, fin or minke whales. Gray whales arrive in December.',s:'whale',q:'San Diego dolphin whale watching boat'},
+    {n:'San Diego harbor cruise',a:'Downtown waterfront',c:'ocean',g:['teen','adult','kid'],p:'1 hour $37 · 2 hours $42',d:'Narrated loop past the Navy fleet, the Coronado Bridge and sea lions on the buoys.',s:'flagship',q:'San Diego harbor cruise Coronado bridge'},
+    {n:'Coronado Ferry',a:'Broadway Pier → Coronado',c:'ocean',g:['teen','adult','kid'],p:'$9 one way (age 4+)',d:'15-minute hop across the bay with skyline views. Hourly; last boat 10 PM.',s:'ferry',q:'Coronado ferry San Diego skyline'},
+    {n:'SEAL Tours',a:'Seaport Village',c:'ocean',g:['kid','adult'],p:'From $45.90',d:'100-minute amphibious tour that drives through downtown and then splashes into the bay. Infants also need a ticket.',closed:true,s:'seal',q:'SEAL Tour San Diego amphibious'},
+    // Indoor thrills
+    {n:'iFLY indoor skydiving',a:'Mission Valley · 5 min',c:'indoor',g:['teen','adult','kid'],p:'About $120 for 2 flights (confirm)',d:'Fly in a vertical wind tunnel with an instructor. Ages 3+. Allow about 1 hr 45 min.',s:'ifly',q:'iFLY indoor skydiving'},
+    {n:'K1 Speed go-karts',a:'San Diego',c:'indoor',g:['teen','adult'],p:'$31 per race + $8.50 license',d:'Electric indoor karts. Juniors need 48"+, adults 58"+; they race in separate heats. Likely closed on Thanksgiving.',closed:true,s:'k1',q:'K1 Speed indoor karting'},
+    {n:'The Escape Game',a:'Gaslamp Quarter',c:'indoor',g:['teen','adult'],p:'$44.99 per person',d:'About 75-minute themed escape rooms. Recommended for ages 13+; under-14s play with an adult.',s:'escape',q:'escape room puzzle game'},
+    {n:'Skating by the Sea',a:'Hotel del Coronado',c:'indoor',g:['teen','adult','kid'],p:'$40–45 per 90 min, skates included',d:'Beachfront ice rink, open 10 AM–10 PM every day of your trip, including Thanksgiving. Under-12s skate with an adult.',s:'skate',q:'Skating by the Sea Hotel del Coronado'},
+    // Museums & landmarks
+    {n:'USS Midway Museum',a:'Downtown waterfront',c:'museum',g:['teen','adult','kid'],p:'$39 adult · $29 age 4–12 (online)',d:'Aircraft carrier with 30 restored planes and cockpits to climb into. Plan 3–5 hours.',plan:true,s:'midway',q:'USS Midway Museum flight deck'},
+    {n:'San Diego Air & Space Museum',a:'Balboa Park',c:'museum',g:['teen','adult','kid'],p:'$35 adult · $22 age 3–11',d:'Real spacecraft and fighter jets plus flight simulators.',closed:true,s:'air',q:'San Diego Air and Space Museum'},
+    {n:'Fleet Science Center',a:'Balboa Park',c:'museum',g:['kid','teen'],p:'$29.95 age 13+ · $24.95 age 3–12',d:'Hands-on science galleries; great for younger kids on a cool day.',closed:true,s:'fleet',q:'Fleet Science Center San Diego'},
+    {n:'Natural History Museum (theNAT)',a:'Balboa Park',c:'museum',g:['kid','teen','adult'],p:'$24.95 adult · $16.95 age 3–17',d:'Dinosaur skeletons, fossils and regional wildlife. Teens pay the youth price.',closed:true,s:'nat',q:'San Diego Natural History Museum dinosaur'},
+    {n:'Maritime Museum',a:'Downtown waterfront',c:'museum',g:['teen','adult','kid'],p:'$28 adult · $15 age 6–17',d:'Walk aboard historic ships, including the 1863 Star of India. Age 5 and under free.',s:'maritime',q:'Maritime Museum of San Diego Star of India'},
+    {n:'Birch Aquarium',a:'La Jolla',c:'museum',g:['kid','adult'],p:'$34.95 adult · $29.95 age 3–12 (online)',d:'Ocean views, kelp forest tank and tide pools. Free 3-hour parking.',closed:true,s:'birch',q:'Birch Aquarium kelp forest'},
+    {n:'Petco Park tour',a:'East Village',c:'museum',g:['teen','adult'],p:'$42.50 everyone (under 36" free)',d:'80-minute behind-the-scenes tour of the Padres ballpark: dugout, press box and suites.',closed:true,s:'petco',q:'Petco Park San Diego'},
+    {n:'Old Town Trolley Tour',a:'Hop on, hop off',c:'museum',g:['teen','adult','kid'],p:'From $48.45 (online)',d:'Narrated loop with stops at Old Town, Balboa Park, Coronado and downtown. Under 3 free.',closed:true,s:'trolley',q:'Old Town Trolley Tours San Diego'},
+    {n:'Cabrillo National Monument',a:'Point Loma · 20 min',c:'museum',g:['teen','adult','kid'],p:'$20 per vehicle (7 days)',d:'Lighthouse, whale overlook and some of the best tide pools in the city (go at low tide).',closed:true,s:'cabrillo',q:'Cabrillo National Monument lighthouse'},
+    {n:'Balboa Park Segway tour',a:'Balboa Park',c:'museum',g:['teen','adult'],p:'$169 per person',d:'2-hour guided ride through the park. Ages 12+.',s:'segway',q:'Balboa Park California Tower'},
+    // Free & scenic
+    {n:'Sunset Cliffs',a:'Point Loma · 15 min',c:'free',g:['teen','adult','kid'],p:'Free',d:'Dramatic sandstone cliffs and arches; the best sunset spot in town. Keep kids well back from the edges.',q:'Sunset Cliffs San Diego'},
+    {n:'Mount Soledad',a:'La Jolla · 20 min',c:'free',g:['teen','adult','kid'],p:'Free',d:'360° view of the coast and city from the veterans memorial. Small free lot.',q:'Mount Soledad view San Diego'},
+    {n:'Potato Chip Rock hike',a:'Poway · 35 min',c:'free',g:['teen','adult'],p:'Free · $10 parking weekends',d:'Strenuous 8-mile round trip with about 2,000 ft of climbing to the famous thin rock ledge photo. Teens love it; not for little kids. Start early with lots of water.',s:'chip',q:'Potato Chip Rock Mt Woodson'},
+    {n:'Gaslamp Quarter & Little Italy',a:'Downtown',c:'free',g:['teen','adult'],p:'Free to explore',d:'Historic streets packed with restaurants and dessert shops. Little Italy runs a Saturday farmers market.',q:'Gaslamp Quarter San Diego night'},
+    {n:'Liberty Public Market',a:'Point Loma',c:'free',g:['teen','adult','kid'],p:'Free entry',d:'Food hall with about 30 vendors, so everyone can pick their own dinner.',q:'Liberty Public Market San Diego'},
+    {n:'Ocean Beach & Pacific Beach piers',a:'Beach towns',c:'free',g:['teen','adult','kid'],p:'Free',d:'Walk the long Ocean Beach Pier, then the boardwalk and Crystal Pier in Pacific Beach. Rent bikes or a surrey nearby (about $15/hr for bikes).',s:'campland',q:'Ocean Beach Pier San Diego'},
+    {n:'Balboa Park gardens',a:'Balboa Park',c:'free',g:['teen','adult','kid'],p:'Free · carousel $4 · train $4.50',d:'Spanish-style plazas, Japanese garden exterior and street performers. Parking $10–16 in the closest lots.',plan:true,s:'balboa',q:'Balboa Park San Diego'},
+    // Day trips
+    {n:'Disneyland',a:'Anaheim · 1.5–2.5 hr',c:'trip',g:['teen','adult','kid'],p:'$104–224 by date; Thanksgiving week likely $180–224',d:'Could replace the Borrego day. Park Hopper adds $70–90. Leave at 6:30 AM to beat traffic.',s:'disney',q:'Disneyland Sleeping Beauty Castle'},
+    {n:'Universal Studios Hollywood',a:'Los Angeles · 2.5–3 hr',c:'trip',g:['teen','adult'],p:'From about $95 online; gate about $155',d:'Movie rides and the studio tour; the strongest teen pick, but a long drive.',s:'universal',q:'Universal Studios Hollywood'},
+    {n:'Temecula wine country',a:'Temecula · 1 hr',c:'trip',g:['adult'],p:'Balloon ride from $180 · tastings about $25–40',d:'Sunrise hot-air balloon flights (ages 6+) and 40+ wineries. An adults-only half day.',s:'balloon',q:'Temecula hot air balloon vineyards'},
+    {n:'Tijuana, Mexico',a:'Border · 25 min',c:'trip',g:['teen','adult'],p:'Free to cross',d:'Everyone needs a passport or passport card to return. Rental vans usually aren\'t allowed into Mexico, so park at San Ysidro and walk across.',s:'mexico',q:'Tijuana Avenida Revolucion'}
+  ];
+  var ageLabel={teen:'Teens',adult:'Adults',kid:'Little kids'};
+  var state={age:'all',cat:'all'};
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function render(){
+    var list=T.filter(function(t){ return (state.age==='all'||t.g.indexOf(state.age)>-1) && (state.cat==='all'||t.c===state.cat); });
+    document.getElementById('count').textContent=list.length+' of '+T.length+' things to do';
+    document.getElementById('things').innerHTML=list.map(function(t){
+      var free=/^Free/.test(t.p);
+      return '<article class="thing"><div class="head"><h3>'+esc(t.n)+'</h3>'+(t.plan?'<span class="inplan">In plan</span>':'')+'</div>'+
+        '<span class="area">'+esc(t.a)+'</span>'+
+        '<span class="price'+(free?' free':'')+'">'+esc(t.p)+'</span>'+
+        '<p>'+esc(t.d)+'</p>'+
+        '<div class="ages">'+t.g.map(function(g){return '<span class="age '+g+'">'+ageLabel[g]+'</span>';}).join('')+'</div>'+
+        (t.closed?'<span class="flag">Closed Thu Nov 26</span>':'')+
+        '<div class="links"><a href="https://www.google.com/search?tbm=isch&q='+encodeURIComponent(t.q)+'" target="_blank" rel="noopener">Photos</a>'+
+        (t.s?'<a href="'+S[t.s]+'" target="_blank" rel="noopener">Price source</a>':'')+'</div></article>';
+    }).join('');
+  }
+  function wire(id,key){
+    var row=document.getElementById(id);
+    row.querySelectorAll('.fchip').forEach(function(b){
+      b.addEventListener('click',function(){ row.querySelectorAll('.fchip').forEach(function(x){x.setAttribute('aria-pressed','false');}); b.setAttribute('aria-pressed','true'); state[key]=b.getAttribute('data-v'); render(); });
+    });
+  }
+  wire('f-age','age'); wire('f-cat','cat'); render();
+  var seen={}, src=[];
+  T.forEach(function(t){ if(t.s && !seen[t.s]){ seen[t.s]=1; src.push('<p><a href="'+S[t.s]+'" target="_blank" rel="noopener">'+esc(t.n)+'</a></p>'); } });
+  src.push('<p><a href="'+S.wild+'" target="_blank" rel="noopener">Safari Park Wild Holidays</a></p>');
+  document.getElementById('ex-sources').innerHTML=src.join('');
 })();
 </script>
 </body>
