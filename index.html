@@ -128,7 +128,7 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
 @media (prefers-reduced-motion:no-preference){ .todo label{transition:background .15s} }
 
 /* tabs */
-.tabbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:4px;padding-block:10px;border-bottom:1px solid var(--line);margin-top:6px}
+.tabbar{flex-wrap:wrap;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:4px;padding-block:10px;border-bottom:1px solid var(--line);margin-top:6px}
 .tabbar button{font:inherit;font-weight:600;font-size:.95rem;color:var(--muted);background:none;border:1px solid transparent;border-radius:999px;padding:7px 16px;cursor:pointer}
 .tabbar button[aria-selected="true"]{color:var(--surface);background:var(--ink)}
 .tabbar button:hover{border-color:var(--line)}
@@ -160,6 +160,17 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
 .swap .d{font-family:var(--mono);font-size:.78rem;color:var(--desert);padding-top:3px}
 .swap p{font-size:.93rem}
 @media (max-width:640px){.swap{grid-template-columns:1fr;gap:2px}}
+
+/* packing */
+.packbar{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:18px}
+.packbar .meter{flex:1 1 160px;height:10px;border-radius:999px;background:var(--bg);border:1px solid var(--line);overflow:hidden}
+.packbar .meter span{display:block;height:100%;width:0;background:var(--good)}
+.packgroup{margin-bottom:20px}
+.packhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin-bottom:8px}
+.packhead .pkcount{margin-left:auto;color:var(--muted)}
+.todo small.sub{display:block;color:var(--muted);font-size:.84rem;margin-top:2px}
+.todo input:checked + span small.sub{text-decoration:none}
+@media (prefers-reduced-motion:no-preference){.packbar .meter span{transition:width .25s}}
 </style>
 </head>
 <body>
@@ -183,12 +194,13 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
   <button type="button" role="tab" id="t-plan" aria-controls="tab-plan" aria-selected="true">Trip plan</button>
   <button type="button" role="tab" id="t-explore" aria-controls="tab-explore" aria-selected="false">Things to do</button>
   <button type="button" role="tab" id="t-food" aria-controls="tab-food" aria-selected="false">Food</button>
+  <button type="button" role="tab" id="t-pack" aria-controls="tab-pack" aria-selected="false">Packing</button>
 </div>
 <div id="tab-plan" role="tabpanel" aria-labelledby="t-plan">
   <nav class="toc" aria-label="Sections">
     <a href="#book">Book now</a><a href="#plan">Day by day</a><a href="#tickets">Tickets &amp; costs</a><a href="#hotels">Where you're staying</a><a href="#tips">Travel tips</a>
   </nav>
-<div class="tipcard" style="margin-top:16px"><p><b>Traveling with teens?</b> The <a href="#explore" data-goto="explore">Things to do</a> tab lists 35 more options for every age, from sea cave kayaking and go-karts to Disneyland, with ticket prices. The <a href="#food" data-goto="food">Food</a> tab has a vegetarian-safe meal plan and the best Indian restaurants.</p></div>
+<div class="tipcard" style="margin-top:16px"><p><b>Traveling with teens?</b> The <a href="#explore" data-goto="explore">Things to do</a> tab lists 35 more options for every age, from sea cave kayaking and go-karts to Disneyland, with ticket prices. The <a href="#food" data-goto="food">Food</a> tab has a vegetarian-safe meal plan and the best Indian restaurants, and the <a href="#pack" data-goto="pack">Packing</a> tab is a checklist for everything to carry.</p></div>
 
 <section id="book">
   <h2>Book these first</h2>
@@ -578,6 +590,28 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
 </section>
 </div>
 
+<div id="tab-pack" role="tabpanel" aria-labelledby="t-pack" hidden>
+<section style="margin-top:28px">
+  <h2>Packing checklist</h2>
+  <p class="lead">Everything to carry for a plane, a van, two desert days, beaches, theme parks and a La Mesa house. Each family can tick items on their own phone; ticks are saved on that device only.</p>
+
+  <div class="tips" style="margin-bottom:22px">
+    <div class="tipcard"><span class="label">Southwest bags</span><p>Free: 1 carry-on (24×16×10 in) and 1 personal item (16.25×13.5×8 in). Checked bags cost <b>$45 first, $55 second</b> on Basic and Choice fares, under 50 lb and 62 in each. Choice Extra, A-List Preferred and Business Select get 2 free; a Southwest credit card gets the first bag free for up to 8 people on the same booking.</p></div>
+    <div class="tipcard"><span class="label">Free to check</span><p>Car seats, strollers, diaper bags and breast pumps fly free and don't count as bags.</p></div>
+    <div class="tipcard"><span class="label">Power banks</span><p>Since April 20, 2026, Southwest allows <b>one power bank per person</b>, carry-on only (never in checked bags or overhead bins), and it must stay visible while charging.</p></div>
+    <div class="tipcard"><span class="label">Weather</span><p>San Diego: about 65–70°F days, 50s at night. Joshua Tree: mid-30s at dawn, about 60°F in the afternoon. Tram summit (8,516 ft): 30s–40s, snow possible.</p></div>
+  </div>
+
+  <div class="packbar">
+    <div><span class="label">Packed</span><div class="big" id="pk-total">0 of 0</div></div>
+    <div class="meter" aria-hidden="true"><span id="pk-meter"></span></div>
+    <button type="button" class="fchip" id="pk-reset">Clear my ticks</button>
+  </div>
+  <div id="pack"></div>
+  <p class="note">Rules checked October 2026; confirm Southwest and TSA rules a week before you fly.</p>
+</section>
+</div>
+
 
 <script>
 (function(){
@@ -631,7 +665,7 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
 <script>
 (function(){
   // ---- Tabs ----
-  var tabs={plan:document.getElementById('tab-plan'),explore:document.getElementById('tab-explore'),food:document.getElementById('tab-food')};
+  var tabs={plan:document.getElementById('tab-plan'),explore:document.getElementById('tab-explore'),food:document.getElementById('tab-food'),pack:document.getElementById('tab-pack')};
   function show(name){
     if(!tabs[name]) name='plan';
     Object.keys(tabs).forEach(function(k){ tabs[k].hidden=(k!==name); var b=document.getElementById('t-'+k); b.setAttribute('aria-selected',k===name?'true':'false'); });
@@ -640,10 +674,11 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
   document.getElementById('t-plan').addEventListener('click',function(){show('plan'); window.scrollTo(0,0);});
   document.getElementById('t-explore').addEventListener('click',function(){show('explore'); window.scrollTo(0,0);});
   document.getElementById('t-food').addEventListener('click',function(){show('food'); window.scrollTo(0,0);});
+  document.getElementById('t-pack').addEventListener('click',function(){show('pack'); window.scrollTo(0,0);});
   document.querySelectorAll('[data-goto]').forEach(function(a){ a.addEventListener('click',function(e){ e.preventDefault(); show(a.getAttribute('data-goto')); window.scrollTo(0,0); }); });
   var start=(location.hash||'').replace('#','');
-  if(start!=='explore'&&start!=='plan'&&start!=='food'){ try{ start=localStorage.getItem('sdtrip-tab')||'plan'; }catch(e){ start='plan'; } }
-  if(location.hash && ['#explore','#plan','#food'].indexOf(location.hash)<0) start='plan';
+  if(['explore','plan','food','pack'].indexOf(start)<0){ try{ start=localStorage.getItem('sdtrip-tab')||'plan'; }catch(e){ start='plan'; } }
+  if(location.hash && ['#explore','#plan','#food','#pack'].indexOf(location.hash)<0) start='plan';
   show(start);
 
   // ---- Things to do ----
@@ -790,6 +825,128 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
   var row=document.getElementById('f-food');
   row.querySelectorAll('.fchip').forEach(function(b){ b.addEventListener('click',function(){ row.querySelectorAll('.fchip').forEach(function(x){x.setAttribute('aria-pressed','false');}); b.setAttribute('aria-pressed','true'); cur=b.getAttribute('data-v'); render(); }); });
   render();
+})();
+</script>
+<script>
+(function(){
+  var G=[
+    {k:'docs',t:'Documents & money',w:'Keep on you',items:[
+      ['REAL ID or passport for every adult 18+','Without one, TSA charges a $45 ConfirmID fee and screening takes longer. Kids under 18 don\'t need ID on domestic flights.'],
+      ['Green card, or passport with visa and I-94, for anyone who isn\'t a US citizen','Border Patrol runs highway checkpoints in this region (for example northbound I-15 near Temecula, on the way to Palm Springs).'],
+      ['Driver\'s license for every van driver','Every driver must be on the rental agreement.'],
+      ['Credit card used to book the van, in the driver\'s name'],
+      ['Van rental confirmation and proof of car insurance'],
+      ['Southwest confirmation numbers and boarding passes in the app'],
+      ['Airport hotel, desert hotel and La Mesa confirmations, host phone number and door code','Save screenshots; there\'s no cell signal inside Joshua Tree.'],
+      ['Joshua Tree vehicle pass, saved on a phone or printed','NPS requires the pass to be printed or saved before you arrive.'],
+      ['Zoo, SeaWorld and Tram tickets saved as screenshots'],
+      ['Health insurance cards for everyone'],
+      ['Some cash in small bills','For tips and the odd cash-only stand.']
+    ]},
+    {k:'carry',t:'Carry-on & personal item',w:'Free on Southwest',items:[
+      ['All medicines in original packaging, plus copies of prescriptions'],
+      ['One power bank per person','Carry-on only, kept visible while charging.'],
+      ['Phones, charging cables and a multi-port USB charger'],
+      ['Liquids in 3.4 oz (100 ml) bottles, all in one quart-size clear bag per person','Baby formula, breast milk, baby food and liquid medicines are exempt; tell the officer.'],
+      ['Dry home snacks: theplas, khakhra, chivda, mathri, dry fruits','Pickles, chutneys, ghee and curries count as liquids, so pack those in checked bags.'],
+      ['Empty water bottles','Fill them after security.'],
+      ['Sweater or hoodie for the plane and the late arrival'],
+      ['Change of clothes for each kid'],
+      ['Headphones and tablets with downloaded shows'],
+      ['One small "first two nights" bag per family','Clothes and toiletries for the airport hotel and the desert night, so big suitcases stay in the van.']
+    ]},
+    {k:'clothes',t:'Clothes & shoes',w:'Checked bag',items:[
+      ['Warm jacket or puffer for every person','Needed at the tram summit and Joshua Tree mornings.'],
+      ['Fleece or hoodie for each person'],
+      ['Beanies and gloves, especially for kids'],
+      ['T-shirts and a few light long-sleeve tops'],
+      ['Jeans or long pants'],
+      ['Shorts for beach days'],
+      ['Swimwear','Hotel pools and the beach; the ocean is about 60°F.'],
+      ['Sleepwear and extra socks'],
+      ['Walking shoes with good grip','For boulders at Hidden Valley and the tram trails.'],
+      ['Sandals or flip-flops for the beach'],
+      ['Water shoes for the La Jolla tide pools','The rocks are slippery.'],
+      ['One nicer outfit for Thanksgiving dinner and photos'],
+      ['Light rain jacket','Rain is unlikely but possible.']
+    ]},
+    {k:'sun',t:'Sun, health & toiletries',w:'Checked bag',items:[
+      ['Sunscreen (full size goes in checked)'],
+      ['Sunglasses and caps or hats for everyone'],
+      ['Lip balm and moisturizer','The desert air is very dry.'],
+      ['First-aid kit: bandages, antiseptic, tweezers, a comb','A comb helps flick off cholla cactus spines.'],
+      ['Fever and pain medicine for kids and adults, with a dosing syringe'],
+      ['Motion sickness medicine','Mountain roads to the tram and Julian are winding.'],
+      ['Allergy medicine, antacids and electrolyte (ORS) packets'],
+      ['Hand sanitizer and wet wipes'],
+      ['Toothbrushes, toothpaste and personal toiletries'],
+      ['Small knife or scissors for picnics','Checked bags only, never carry-on.']
+    ]},
+    {k:'kids',t:'Kids',w:'',items:[
+      ['Car seats or boosters','California requires them for kids under 8 or under 4\'9". They fly free; or reserve them with the van.'],
+      ['Stroller','The Zoo is big and hilly. Strollers fly free.'],
+      ['Baby carrier for the littlest ones'],
+      ['Diapers, wipes, changing pad'],
+      ['Formula or milk, bottles and sippy cups'],
+      ['Kids\' sunscreen and hats'],
+      ['Small toys, coloring books and card games for 2–3 hour drives'],
+      ['Teens: own power bank (one each), headphones, swimwear'],
+      ['Beach bucket and spade','Or buy a cheap set locally.']
+    ]},
+    {k:'van',t:'Van & road days',w:'Buy locally if easier',items:[
+      ['Phone mount and USB car charger for the van'],
+      ['Offline Google Maps for Joshua Tree, Palm Springs and Borrego Springs'],
+      ['Soft cooler bag','The Zoo only allows coolers up to 12×12 in. Buy one cheaply at Walmart or Target.'],
+      ['1 gallon of water per person for Joshua Tree','Buy at Walmart in Yucca Valley on Sunday night.'],
+      ['Picnic kit: paper plates, cups, spoons, napkins, foil, zip bags'],
+      ['Trash bags and paper towels'],
+      ['Flashlight or headlamp for stargazing'],
+      ['Picnic blanket or beach towel to sit on'],
+      ['Binoculars (optional) for sea lions, dolphins and stars'],
+      ['Car sickness bags']
+    ]},
+    {k:'food',t:'Indian food & kitchen',w:'For the La Mesa stay',items:[
+      ['Ready-to-eat packets (MTR or Haldiram\'s), instant poha or upma, cup noodles','Easy meals for the two desert days.'],
+      ['Instant chai or tea masala'],
+      ['Small steel tiffin boxes for picnics'],
+      ['Leak-proof jars, wrapped in zip bags, for pickles, chutneys or ghee in checked bags'],
+      ['Basic masala dabba if you plan to cook','Or buy spices at Miramar Cash & Carry on Sunday morning.']
+    ]},
+    {k:'before',t:'Before you leave home',w:'',items:[
+      ['Check in on Southwest 24 hours before the flight and confirm families sit together'],
+      ['Weigh every checked bag (under 50 lb)','Share bags across families to cut fees.'],
+      ['Install apps: Southwest, the van rental company, NPS (download Joshua Tree for offline use), San Diego Zoo, SeaWorld'],
+      ['Screenshot every booking and ticket'],
+      ['Charge all phones, tablets and power banks the night before'],
+      ['Order Thanksgiving catering trays for pickup Wed Nov 25'],
+      ['Home: lock up, pause mail, set the thermostat']
+    ]}
+  ];
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function get(id){try{return localStorage.getItem('sdtrip-pk-'+id)==='1';}catch(e){return false;}}
+  function put(id,v){try{localStorage.setItem('sdtrip-pk-'+id,v?'1':'0');}catch(e){}}
+  var root=document.getElementById('pack');
+  root.innerHTML=G.map(function(g){
+    return '<div class="packgroup"><div class="packhead"><h3>'+esc(g.t)+'</h3>'+(g.w?'<span class="area">'+esc(g.w)+'</span>':'')+'<span class="pkcount mono" id="pc-'+g.k+'"></span></div><ul class="todo">'+
+      g.items.map(function(it,i){var id=g.k+'-'+i;
+        return '<li><label><input type="checkbox" id="pk-'+id+'" data-id="'+id+'" data-g="'+g.k+'"'+(get(id)?' checked':'')+'><span>'+esc(it[0])+(it[1]?'<small class="sub">'+esc(it[1])+'</small>':'')+'</span></label></li>';
+      }).join('')+'</ul></div>';
+  }).join('');
+  function update(){
+    var all=root.querySelectorAll('input'),done=0;
+    all.forEach(function(c){if(c.checked)done++;});
+    document.getElementById('pk-total').textContent=done+' of '+all.length;
+    document.getElementById('pk-meter').style.width=(all.length?Math.round(done*100/all.length):0)+'%';
+    G.forEach(function(g){var b=root.querySelectorAll('input[data-g="'+g.k+'"]'),d=0;b.forEach(function(c){if(c.checked)d++;});document.getElementById('pc-'+g.k).textContent=d+'/'+b.length;});
+  }
+  root.addEventListener('change',function(e){var c=e.target;if(c.matches('input[type=checkbox]')){put(c.getAttribute('data-id'),c.checked);update();}});
+  var rb=document.getElementById('pk-reset'),armed=false,timer;
+  rb.addEventListener('click',function(){
+    if(!armed){armed=true;rb.textContent='Tap again to clear all';clearTimeout(timer);timer=setTimeout(function(){armed=false;rb.textContent='Clear my ticks';},4000);return;}
+    armed=false;rb.textContent='Clear my ticks';
+    root.querySelectorAll('input').forEach(function(c){c.checked=false;put(c.getAttribute('data-id'),false);});update();
+  });
+  update();
 })();
 </script>
 </body>
