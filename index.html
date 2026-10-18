@@ -15,6 +15,7 @@
   --coast:#1f6f8b; --coast-soft:#e2f0f4; --desert:#b5651d; --desert-soft:#f8ebdc;
   --sage:#5d7d63; --sun:#e9a23b; --sky:#cfe6ee; --sand:#ecd9b6; --hill:#c9a46f;
   --good:#2f7a4f; --warn:#a05a00;
+  --r1:#1f6f8b; --r2:#b5651d; --r3:#8a4fb3; --r4:#2f7a4f; --r5:#c2410c; --r6:#0e7490; --r7:#a16207; --r8:#be185d; --mapsea:#cfe3ea; --maplnd:#f3f1ea;
   --display:"Young Serif", Georgia, "Times New Roman", serif;
   --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
@@ -23,12 +24,14 @@
   --bg:#0f1a1d; --surface:#16242a; --ink:#e6eef0; --muted:#9db0b5; --line:#2a3b41;
   --coast:#6cc0dc; --coast-soft:#183640; --desert:#e59a5a; --desert-soft:#3a2818;
   --sage:#94b89a; --sun:#f0b65c; --sky:#1d3a45; --sand:#4a3b22; --hill:#6b5233;
-  --good:#7fd1a0; --warn:#f0b05c; color-scheme:dark}}
+  --good:#7fd1a0; --warn:#f0b05c;
+  --r1:#6cc0dc; --r2:#e59a5a; --r3:#c39ae0; --r4:#7fd1a0; --r5:#f08a5d; --r6:#5fc6d6; --r7:#e2b54a; --r8:#f07ab0; --mapsea:#16303a; --maplnd:#1b262a; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0f1a1d; --surface:#16242a; --ink:#e6eef0; --muted:#9db0b5; --line:#2a3b41;
   --coast:#6cc0dc; --coast-soft:#183640; --desert:#e59a5a; --desert-soft:#3a2818;
   --sage:#94b89a; --sun:#f0b65c; --sky:#1d3a45; --sand:#4a3b22; --hill:#6b5233;
-  --good:#7fd1a0; --warn:#f0b05c; color-scheme:dark}
+  --good:#7fd1a0; --warn:#f0b05c;
+  --r1:#6cc0dc; --r2:#e59a5a; --r3:#c39ae0; --r4:#7fd1a0; --r5:#f08a5d; --r6:#5fc6d6; --r7:#e2b54a; --r8:#f07ab0; --mapsea:#16303a; --maplnd:#1b262a; color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0}img{max-width:100%}[hidden]{display:none!important}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
@@ -171,13 +174,44 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
 .todo small.sub{display:block;color:var(--muted);font-size:.84rem;margin-top:2px}
 .todo input:checked + span small.sub{text-decoration:none}
 @media (prefers-reduced-motion:no-preference){.packbar .meter span{transition:width .25s}}
+
+/* map */
+.daypick{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;flex:none}
+.maps{display:grid;gap:16px}
+.mapfig{margin:0;display:grid;gap:6px}
+.mapfig figcaption{display:flex;gap:10px;align-items:baseline}
+.mapbox svg{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--line)}
+.mlabel{fill:var(--ink);font-family:var(--body);paint-order:stroke;stroke:var(--maplnd);stroke-width:4px;stroke-linejoin:round}
+.mlabel.base{font-weight:700}
+.dirlist{display:grid;gap:10px}
+.dir{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:8px;min-width:0}
+.dir.on{border-color:var(--coast);box-shadow:0 0 0 1px var(--coast) inset}
+.dhead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dhead h3{font-size:1.02rem}
+.dbtns{display:flex;flex-wrap:wrap;gap:8px}
+.gbtn{display:inline-block;background:var(--coast);color:var(--surface);text-decoration:none;font-weight:600;font-size:.9rem;border-radius:8px;padding:6px 12px}
+.dstops{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.88rem}
+.drivebars{display:grid;gap:6px}
+.bar{display:grid;grid-template-columns:64px 1fr 92px;align-items:center;gap:10px}
+.track{height:12px;background:var(--bg);border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.track span{display:block;height:100%}
+.bar .v{font-variant-numeric:tabular-nums;font-size:.88rem;color:var(--muted)}
+.bar.total .track{border:0;background:none}
+.bar.total .v{color:var(--ink);font-weight:600}
+.hero .scene svg{display:block;width:100%;height:100%}
+/* photos */
+.scene.photo{position:relative;overflow:hidden}
+.scene.photo img{width:100%;height:100%;min-height:150px;object-fit:cover;display:block}
+.hero .scene.photo{height:240px!important}
+.scene.photo .credit{position:absolute;right:6px;bottom:6px;font-size:.68rem;line-height:1.4;background:rgba(0,0,0,.55);color:#fff;padding:1px 6px;border-radius:4px;text-decoration:none}
 </style>
 </head>
 <body>
 
 <div class="wrap">
 <header class="hero">
-  <div class="scene" data-scene="hero" style="height:150px"></div>
+  <div class="scene" data-scene="hero" data-wiki="San Diego" style="height:150px"></div>
   <span class="label">Family trip book · shared plan</span>
   <h1>San Diego &amp; the Desert</h1>
   <div class="facts">
@@ -192,6 +226,7 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
 
 <div class="tabbar" role="tablist" aria-label="Trip sections">
   <button type="button" role="tab" id="t-plan" aria-controls="tab-plan" aria-selected="true">Trip plan</button>
+  <button type="button" role="tab" id="t-map" aria-controls="tab-map" aria-selected="false">Map</button>
   <button type="button" role="tab" id="t-explore" aria-controls="tab-explore" aria-selected="false">Things to do</button>
   <button type="button" role="tab" id="t-food" aria-controls="tab-food" aria-selected="false">Food</button>
   <button type="button" role="tab" id="t-pack" aria-controls="tab-pack" aria-selected="false">Packing</button>
@@ -200,7 +235,7 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
   <nav class="toc" aria-label="Sections">
     <a href="#book">Book now</a><a href="#plan">Day by day</a><a href="#tickets">Tickets &amp; costs</a><a href="#hotels">Where you're staying</a><a href="#tips">Travel tips</a>
   </nav>
-<div class="tipcard" style="margin-top:16px"><p><b>Traveling with teens?</b> The <a href="#explore" data-goto="explore">Things to do</a> tab lists 35 more options for every age, from sea cave kayaking and go-karts to Disneyland, with ticket prices. The <a href="#food" data-goto="food">Food</a> tab has a vegetarian-safe meal plan and the best Indian restaurants, and the <a href="#pack" data-goto="pack">Packing</a> tab is a checklist for everything to carry.</p></div>
+<div class="tipcard" style="margin-top:16px"><p><b>Traveling with teens?</b> The <a href="#explore" data-goto="explore">Things to do</a> tab lists 35 more options for every age, from sea cave kayaking and go-karts to Disneyland, with ticket prices. The <a href="#food" data-goto="food">Food</a> tab has a vegetarian-safe meal plan and the best Indian restaurants, the <a href="#pack" data-goto="pack">Packing</a> tab is a checklist for everything to carry, and the <a href="#map" data-goto="map">Map</a> tab has the route and Google Maps directions for each day.</p></div>
 
 <section id="book">
   <h2>Book these first</h2>
@@ -224,7 +259,7 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
   <div class="days">
 
     <article class="day travel">
-      <div class="scene" data-scene="plane"></div>
+      <div class="scene" data-scene="plane" data-wiki="San Diego International Airport"></div>
       <div class="body">
         <div class="top"><span class="date">SAT NOV 21</span><h3>Land and sleep near the airport</h3></div>
         <ul class="stops">
@@ -236,7 +271,7 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
     </article>
 
     <article class="day desert">
-      <div class="scene" data-scene="mountain"></div>
+      <div class="scene" data-scene="mountain" data-wiki="Palm Springs Aerial Tramway"></div>
       <div class="body">
         <div class="top"><span class="date">SUN NOV 22</span><h3>Up the mountain at Palm Springs, sleep near Joshua Tree</h3></div>
         <ul class="stops">
@@ -253,7 +288,7 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
     </article>
 
     <article class="day desert">
-      <div class="scene" data-scene="desert"></div>
+      <div class="scene" data-scene="desert" data-wiki="Joshua Tree National Park"></div>
       <div class="body">
         <div class="top"><span class="date">MON NOV 23</span><h3>Joshua Tree National Park, then drive to La Mesa</h3></div>
         <ul class="stops">
@@ -272,7 +307,7 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
     </article>
 
     <article class="day coast">
-      <div class="scene" data-scene="zoo"></div>
+      <div class="scene" data-scene="zoo" data-wiki="San Diego Zoo"></div>
       <div class="body">
         <div class="top"><span class="date">TUE NOV 24</span><h3>San Diego Zoo</h3></div>
         <ul class="stops">
@@ -287,7 +322,7 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
     </article>
 
     <article class="day coast">
-      <div class="scene" data-scene="tower"></div>
+      <div class="scene" data-scene="tower" data-wiki="Balboa Park (San Diego)"></div>
       <div class="body">
         <div class="top"><span class="date">WED NOV 25</span><h3>Balboa Park museums and gardens</h3></div>
         <ul class="stops">
@@ -303,7 +338,7 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
     </article>
 
     <article class="day coast">
-      <div class="scene" data-scene="beach"></div>
+      <div class="scene" data-scene="beach" data-wiki="Hotel del Coronado"></div>
       <div class="body">
         <div class="top"><span class="date">THU NOV 26 · THANKSGIVING</span><h3>Coronado beach day and Sunset Cliffs</h3></div>
         <ul class="stops">
@@ -320,7 +355,7 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
     </article>
 
     <article class="day desert">
-      <div class="scene" data-scene="sculpture"></div>
+      <div class="scene" data-scene="sculpture" data-wiki="Julian, California"></div>
       <div class="body">
         <div class="top"><span class="date">FRI NOV 27</span><h3>Julian apple pie and Borrego Springs dinosaurs</h3></div>
         <ul class="stops">
@@ -336,7 +371,7 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
     </article>
 
     <article class="day coast">
-      <div class="scene" data-scene="ship"></div>
+      <div class="scene" data-scene="ship" data-wiki="USS Midway Museum"></div>
       <div class="body">
         <div class="top"><span class="date">SAT NOV 28</span><h3>USS Midway and the downtown waterfront</h3></div>
         <ul class="stops">
@@ -352,7 +387,7 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
     </article>
 
     <article class="day travel">
-      <div class="scene" data-scene="plane"></div>
+      <div class="scene" data-scene="plane" data-wiki="Old Town San Diego State Historic Park"></div>
       <div class="body">
         <div class="top"><span class="date">SUN NOV 29</span><h3>Old Town, then fly home at 6 PM</h3></div>
         <ul class="stops">
@@ -499,7 +534,7 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
     <p><a href="https://www.britishairways.com/en-gb/destinations/hotel-information/san-diego/holiday-inn-san-diego-bayside/US-SAN-2243621" target="_blank" rel="noopener">Holiday Inn San Diego Bayside</a></p>
     <p><a href="https://wanderlog.com/place/details/1601337/himalayan-cuisine" target="_blank" rel="noopener">Himalayan Cuisine, La Mesa</a></p>
   </div>
-  <footer>Prices and hours were checked in October 2026 and can change. Confirm on official sites before buying.</footer>
+  <footer>Prices and hours were checked in October 2026 and can change. Confirm on official sites before buying. Photos load from Wikipedia and Wikimedia Commons; tap "Photo: Wikimedia" on any photo for its author and license.</footer>
 </section>
 </div>
 <div id="tab-explore" role="tabpanel" aria-labelledby="t-explore" hidden>
@@ -615,6 +650,44 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
 </section>
 </div>
 
+<div id="tab-map" role="tabpanel" aria-labelledby="t-map" hidden>
+<section style="margin-top:28px">
+  <h2>Route map &amp; directions</h2>
+  <p class="lead">The whole trip at a glance, with one Google Maps button per day that loads that day's stops in order. Tap a day to highlight its route. The lines show the order of stops, not the exact roads.</p>
+
+  <div class="daypick" id="daypick" role="group" aria-label="Highlight a day"></div>
+
+  <div class="maps">
+    <figure class="mapfig">
+      <figcaption><span class="label">Whole trip</span><span class="area">San Diego to Joshua Tree</span></figcaption>
+      <div class="mapbox" id="map-all"></div>
+    </figure>
+    <figure class="mapfig">
+      <figcaption><span class="label">San Diego close-up</span><span class="area">Days based at La Mesa</span></figcaption>
+      <div class="mapbox" id="map-sd"></div>
+    </figure>
+  </div>
+
+  <h3 style="margin:26px 0 10px">Directions for each day</h3>
+  <p class="note" style="margin:-4px 0 12px">Each button opens Google Maps with the day's stops in order. Tap any stop name to navigate there from wherever you are. Replace "La Mesa, CA" with your rental's address the first time you use it.</p>
+  <div class="dirlist" id="dirlist"></div>
+
+  <h3 style="margin:28px 0 10px">How the trip is optimized</h3>
+  <div class="drivebars" id="drivebars"></div>
+  <p class="note">Driving time per day, estimated without traffic. Long driving days alternate with short ones.</p>
+
+  <div class="tips" style="margin-top:16px">
+    <div class="tipcard"><span class="label">Desert first, in one sweep</span><p>The airport, Mira Mesa breakfast and the Palm Springs Tram all sit on one northbound route, and one night in Yucca Valley avoids a 6-hour round trip in a single day.</p></div>
+    <div class="tipcard"><span class="label">No backtracking in Joshua Tree</span><p>Enter at the West Entrance on a quiet Monday morning, drive the park north to south, and exit at Cottonwood toward San Diego.</p></div>
+    <div class="tipcard"><span class="label">One base for six nights</span><p>La Mesa sits on I-8 in the middle of the county: 15–25 minutes to almost every San Diego stop, and the closest base for the Julian day.</p></div>
+    <div class="tipcard"><span class="label">One area per day</span><p>Tuesday and Wednesday are Balboa Park and the north loop to Miramar, Thursday is the bay and Point Loma, Saturday is the downtown waterfront.</p></div>
+    <div class="tipcard"><span class="label">Around closures and crowds</span><p>Museums on Wednesday because they close for Thanksgiving; beach, ice rink and cliffs on Thanksgiving because they stay open; Zoo on a weekday; Julian early on Friday.</p></div>
+    <div class="tipcard"><span class="label">An easy last day</span><p>Old Town is 10 minutes from the airport, so the van goes back early on the busiest flying day of the year.</p></div>
+  </div>
+  <p class="note">No cell signal inside Joshua Tree: download the Joshua Tree and Palm Springs areas in Google Maps for offline use before Sunday.</p>
+</section>
+</div>
+
 
 <script>
 (function(){
@@ -669,7 +742,7 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
 <script>
 (function(){
   // ---- Tabs ----
-  var tabs={plan:document.getElementById('tab-plan'),explore:document.getElementById('tab-explore'),food:document.getElementById('tab-food'),pack:document.getElementById('tab-pack')};
+  var tabs={plan:document.getElementById('tab-plan'),explore:document.getElementById('tab-explore'),food:document.getElementById('tab-food'),pack:document.getElementById('tab-pack'),map:document.getElementById('tab-map')};
   function show(name){
     if(!tabs[name]) name='plan';
     Object.keys(tabs).forEach(function(k){ tabs[k].hidden=(k!==name); var b=document.getElementById('t-'+k); b.setAttribute('aria-selected',k===name?'true':'false'); });
@@ -679,10 +752,11 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
   document.getElementById('t-explore').addEventListener('click',function(){show('explore'); window.scrollTo(0,0);});
   document.getElementById('t-food').addEventListener('click',function(){show('food'); window.scrollTo(0,0);});
   document.getElementById('t-pack').addEventListener('click',function(){show('pack'); window.scrollTo(0,0);});
+  document.getElementById('t-map').addEventListener('click',function(){show('map'); window.scrollTo(0,0);});
   document.querySelectorAll('[data-goto]').forEach(function(a){ a.addEventListener('click',function(e){ e.preventDefault(); show(a.getAttribute('data-goto')); window.scrollTo(0,0); }); });
   var start=(location.hash||'').replace('#','');
-  if(['explore','plan','food','pack'].indexOf(start)<0){ try{ start=localStorage.getItem('sdtrip-tab')||'plan'; }catch(e){ start='plan'; } }
-  if(location.hash && ['#explore','#plan','#food','#pack'].indexOf(location.hash)<0) start='plan';
+  if(['explore','plan','food','pack','map'].indexOf(start)<0){ try{ start=localStorage.getItem('sdtrip-tab')||'plan'; }catch(e){ start='plan'; } }
+  if(location.hash && ['#explore','#plan','#food','#pack','#map'].indexOf(location.hash)<0) start='plan';
   show(start);
 
   // ---- Things to do ----
@@ -951,6 +1025,118 @@ footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
     root.querySelectorAll('input').forEach(function(c){c.checked=false;put(c.getAttribute('data-id'),false);});update();
   });
   update();
+})();
+</script>
+<script>
+(function(){
+  var P={
+    sanairport:[32.7338,-117.1933,'Airport'], miramesa:[32.9105,-117.1435,'Mira Mesa'], temecula:[33.49,-117.15,''], banning:[33.93,-116.88,''],
+    tram:[33.8372,-116.6142,'Palm Springs Tram'], yucca:[34.1142,-116.4325,'Yucca Valley'], hidden:[34.0124,-116.168,'Hidden Valley'],
+    keys:[33.9268,-116.1874,'Keys View'], skull:[33.9989,-116.0646,'Skull Rock'], cholla:[33.9258,-115.929,'Cholla Garden'], cotton:[33.741,-115.8206,'Cottonwood'],
+    indio:[33.72,-116.22,''], escondido:[33.12,-117.09,''], lamesa:[32.7678,-117.0231,'La Mesa (base)'], zoo:[32.7353,-117.149,'San Diego Zoo'],
+    ifly:[32.768,-117.146,'Mission Valley (iFLY)'], balboa:[32.7262,-117.1543,'Balboa Park'], sattvik:[32.8846,-117.1665,'Miramar (Indian food)'],
+    coronado:[32.6808,-117.1785,'Coronado Beach'], cliffs:[32.7194,-117.2551,'Sunset Cliffs'], alpine:[32.835,-116.766,''], cuyamaca:[32.95,-116.58,''],
+    julian:[33.0786,-116.6019,'Julian'], borrego:[33.2559,-116.375,'Borrego Springs'], ramona:[33.04,-116.87,''], midway:[32.7137,-117.1751,'USS Midway'],
+    seaport:[32.7092,-117.171,'Seaport Village'], littleitaly:[32.7244,-117.1683,'Little Italy'], oldtown:[32.7549,-117.1979,'Old Town']
+  };
+  // q = Google Maps search text for each stop
+  var Q={sanairport:'San Diego International Airport',miramesa:'San Idli Vegetarian, 9550 Black Mountain Rd, San Diego, CA',miramarcc:'Miramar Cash & Carry, 9252 Miramar Rd, San Diego, CA',
+    tram:'Palm Springs Aerial Tramway',yucca:'Yucca Valley, CA',hidden:'Hidden Valley Nature Trail, Joshua Tree National Park',keys:'Keys View, Joshua Tree National Park',
+    skull:'Skull Rock, Joshua Tree National Park',cholla:'Cholla Cactus Garden, Joshua Tree National Park',cotton:'Cottonwood Visitor Center, Joshua Tree National Park',
+    lamesa:'La Mesa, CA',zoo:'San Diego Zoo',ifly:'iFLY Indoor Skydiving San Diego',balboa:'San Diego Air & Space Museum',sattvik:'Sattvik Foods, 8650 Miramar Rd, San Diego, CA',
+    coronado:'Hotel del Coronado',cliffs:'Sunset Cliffs Natural Park',julian:'Julian, CA',borrego:'Galleta Meadows, Borrego Springs, CA',midway:'USS Midway Museum',
+    seaport:'Seaport Village, San Diego',littleitaly:'Little Italy, San Diego',oldtown:'Old Town San Diego State Historic Park',rcc:'San Diego Rental Car Center'};
+  var D=[
+    {d:'Sat 21',t:'Land, airport hotel',c:'--r1',path:['sanairport'],legs:[{o:'sanairport',w:[],x:'rcc',l:'Airport to Rental Car Center'}],stops:['sanairport','rcc'],hr:0.2},
+    {d:'Sun 22',t:'Mira Mesa, Palm Springs Tram, Yucca Valley',c:'--r2',path:['sanairport','miramesa','temecula','banning','tram','yucca'],legs:[{o:'sanairport',w:['miramesa','miramarcc','tram'],x:'yucca',l:'Open the day in Google Maps'}],stops:['miramesa','miramarcc','tram','yucca'],hr:3},
+    {d:'Mon 23',t:'Joshua Tree, then La Mesa',c:'--r3',path:['yucca','hidden','keys','skull','cholla','cotton','indio','banning','temecula','escondido','lamesa'],legs:[{o:'yucca',w:['hidden','keys','skull'],x:'cholla',l:'Park loop'},{o:'cholla',w:['cotton'],x:'lamesa',l:'Drive to La Mesa'}],stops:['hidden','keys','skull','cholla','cotton','lamesa'],hr:4.25},
+    {d:'Tue 24',t:'San Diego Zoo',c:'--r4',path:['lamesa','zoo','ifly','lamesa'],legs:[{o:'lamesa',w:['zoo','ifly'],x:'lamesa',l:'Open the day in Google Maps'}],stops:['zoo','ifly'],hr:0.75},
+    {d:'Wed 25',t:'Balboa Park museums, Miramar dinner',c:'--r5',path:['lamesa','balboa','sattvik','lamesa'],legs:[{o:'lamesa',w:['balboa','sattvik'],x:'lamesa',l:'Open the day in Google Maps'}],stops:['balboa','sattvik'],hr:1},
+    {d:'Thu 26',t:'Coronado and Sunset Cliffs',c:'--r6',path:['lamesa','coronado','cliffs','lamesa'],legs:[{o:'lamesa',w:['coronado','cliffs'],x:'lamesa',l:'Open the day in Google Maps'}],stops:['coronado','cliffs'],hr:1.25},
+    {d:'Fri 27',t:'Julian and Borrego Springs',c:'--r7',path:['lamesa','alpine','cuyamaca','julian','borrego','ramona','lamesa'],legs:[{o:'lamesa',w:['julian','borrego'],x:'lamesa',l:'Open the day in Google Maps'}],stops:['julian','borrego'],hr:4},
+    {d:'Sat 28',t:'USS Midway and the waterfront',c:'--r8',path:['lamesa','midway','seaport','littleitaly','miramesa','lamesa'],legs:[{o:'lamesa',w:['midway','seaport','miramesa'],x:'lamesa',l:'Open the day in Google Maps'}],stops:['midway','seaport','littleitaly','miramesa'],hr:1.25},
+    {d:'Sun 29',t:'Old Town, fly home',c:'--r1',path:['lamesa','oldtown','sanairport'],legs:[{o:'lamesa',w:['oldtown','rcc'],x:'sanairport',l:'Open the day in Google Maps'}],stops:['oldtown','rcc','sanairport'],hr:0.6}
+  ];
+  var NAMES={rcc:'Rental Car Center',miramarcc:'Miramar Cash & Carry'};
+  function nm(k){return NAMES[k]||(P[k]&&P[k][2])||k;}
+  function gm(o,w,x){var u='https://www.google.com/maps/dir/?api=1&travelmode=driving&origin='+encodeURIComponent(Q[o])+'&destination='+encodeURIComponent(Q[x]);
+    if(w.length)u+='&waypoints='+encodeURIComponent(w.map(function(k){return Q[k];}).join('|'));return u;}
+  function go(k){return 'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination='+encodeURIComponent(Q[k]);}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+  function draw(el,B,showDays,labels,water){
+    var cos=Math.cos(33.3*Math.PI/180),pad=16;
+    var W=(B.lon1-B.lon0)*cos*B.s+pad*2,H=(B.lat1-B.lat0)*B.s+pad*2;
+    function xy(lat,lon){return [((lon-B.lon0)*cos*B.s+pad).toFixed(1),((B.lat1-lat)*B.s+pad).toFixed(1)];}
+    var svg='<svg viewBox="0 0 '+W.toFixed(0)+' '+H.toFixed(0)+'" role="img" aria-label="Route map">';
+    svg+='<rect width="100%" height="100%" fill="var(--maplnd)"/>';
+    water.forEach(function(poly){svg+='<polygon points="'+poly.map(function(p){return xy(p[0],p[1]).join(',');}).join(' ')+'" fill="var(--mapsea)"/>';});
+    (B.extra||[]).forEach(function(e){svg+=e(xy);});
+    showDays.forEach(function(i){var d=D[i];if(d.path.length<2)return;
+      svg+='<polyline class="rt" data-i="'+i+'" points="'+d.path.map(function(k){return xy(P[k][0],P[k][1]).join(',');}).join(' ')+'" fill="none" stroke="var('+d.c+')" stroke-width="'+B.w+'" stroke-linejoin="round" stroke-linecap="round" opacity=".9"/>';});
+    labels.forEach(function(k){var p=xy(P[k][0],P[k][1]),base=k==='lamesa'||k==='sanairport';
+      svg+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="'+(base?B.r+2:B.r)+'" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>';
+      var a=B.anchor&&B.anchor[k]||['start',9,4];
+      svg+='<text x="'+(+p[0]+a[1])+'" y="'+(+p[1]+a[2])+'" text-anchor="'+a[0]+'" class="mlabel'+(base?' base':'')+'" font-size="'+B.f+'">'+esc(P[k][2])+'</text>';});
+    svg+='</svg>';el.innerHTML=svg;
+  }
+  var oceanAll=[[34.2,-117.45],[33.3,-117.45],[33.19,-117.38],[33.13,-117.33],[33.0,-117.28],[32.93,-117.26],[32.86,-117.26],[32.84,-117.28],[32.8,-117.26],[32.75,-117.25],[32.67,-117.245],[32.7,-117.23],[32.68,-117.18],[32.62,-117.14],[32.534,-117.124],[32.52,-117.124],[32.52,-117.45]];
+  var B1={lon0:-117.45,lon1:-115.7,lat0:32.52,lat1:34.2,s:430,w:4,r:5,f:15,
+    extra:[function(xy){var a=xy(32.535,-117.45),b=xy(32.535,-115.7);return '<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+b[0]+'" y2="'+b[1]+'" stroke="var(--muted)" stroke-dasharray="6 5"/><text x="'+(+b[0]-6)+'" y="'+(+b[1]-6)+'" text-anchor="end" class="mlabel" font-size="13" opacity=".7">Mexico border</text>';},
+      function(xy){var p=xy(32.66,-117.44);return '<text x="'+p[0]+'" y="'+p[1]+'" class="mlabel" font-size="13" opacity=".6">Pacific</text>';},
+      function(xy){var p=xy(33.98,-116.3);return '<rect x="'+(+p[0]-6)+'" y="'+(+p[1]-6)+'" width="'+(xy(33.98,-115.75)[0]-p[0]+6)+'" height="'+(xy(33.72,-116.3)[1]-p[1]+10)+'" rx="10" fill="var(--desert)" opacity=".08"/>';}],
+    anchor:{sanairport:['end',-9,18],miramesa:['end',-9,4],lamesa:['start',9,14],tram:['end',-9,4],yucca:['start',9,-6],hidden:['end',-9,-6],keys:['end',-9,4],skull:['start',8,-6],cholla:['end',-8,20],cotton:['end',-9,4],julian:['end',-9,4],borrego:['start',9,4]}};
+  var labelsAll=['sanairport','miramesa','tram','yucca','hidden','keys','skull','cholla','cotton','lamesa','julian','borrego'];
+  var oceanSD=[[32.93,-117.29],[32.93,-117.258],[32.87,-117.255],[32.85,-117.275],[32.83,-117.28],[32.8,-117.26],[32.755,-117.258],[32.72,-117.259],[32.69,-117.25],[32.665,-117.245],[32.66,-117.245],[32.66,-117.16],[32.672,-117.17],[32.678,-117.185],[32.695,-117.21],[32.70,-117.232],[32.69,-117.24],[32.66,-117.29]];
+  var baySD=[[32.722,-117.226],[32.735,-117.205],[32.726,-117.176],[32.712,-117.172],[32.695,-117.153],[32.672,-117.122],[32.66,-117.115],[32.66,-117.14],[32.673,-117.163],[32.688,-117.18],[32.698,-117.205],[32.703,-117.226]];
+  var mbay=[[32.802,-117.235],[32.797,-117.205],[32.778,-117.205],[32.768,-117.222],[32.765,-117.245],[32.775,-117.252],[32.79,-117.245]];
+  var B2={lon0:-117.29,lon1:-116.995,lat0:32.66,lat1:32.93,s:2300,w:5,r:6,f:16,
+    anchor:{sanairport:['end',-10,-10],oldtown:['start',10,-6],zoo:['start',10,4],ifly:['start',10,-8],balboa:['start',12,16],sattvik:['start',10,4],miramesa:['start',10,4],coronado:['start',10,10],cliffs:['start',-8,24],midway:['end',-10,0],seaport:['end',-10,16],littleitaly:['end',-10,0],lamesa:['end',-4,28]}};
+  var labelsSD=['sanairport','oldtown','zoo','ifly','balboa','sattvik','miramesa','coronado','cliffs','midway','seaport','littleitaly','lamesa'];
+  // San Diego close-up paths: trim out-of-area points
+  var sdDays=[3,4,5,7,8];
+  draw(document.getElementById('map-all'),B1,[1,2,3,4,5,6,7,8],labelsAll,[oceanAll]);
+  draw(document.getElementById('map-sd'),B2,sdDays,labelsSD,[oceanSD,baySD,mbay]);
+
+  // day picker
+  var pick=document.getElementById('daypick'),sel=-1;
+  pick.innerHTML='<button type="button" class="fchip" data-i="-1" aria-pressed="true">All days</button>'+D.map(function(d,i){return i===0?'':'<button type="button" class="fchip" data-i="'+i+'" aria-pressed="false"><span class="sw" style="background:var('+d.c+')"></span>'+d.d+'</button>';}).join('');
+  function hl(i){sel=i;pick.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',+b.getAttribute('data-i')===i?'true':'false');});
+    document.querySelectorAll('#tab-map .rt').forEach(function(l){var on=i<0||+l.getAttribute('data-i')===i;l.setAttribute('opacity',on?'.9':'.12');l.setAttribute('stroke-width',(on&&i>=0?1.6:1)*(l.closest('#map-sd')?5:4));});
+    document.querySelectorAll('#dirlist .dir').forEach(function(c){c.classList.toggle('on',+c.getAttribute('data-i')===i);});}
+  pick.addEventListener('click',function(e){var b=e.target.closest('button');if(b)hl(+b.getAttribute('data-i'));});
+
+  // directions list
+  document.getElementById('dirlist').innerHTML=D.map(function(d,i){
+    return '<article class="dir" data-i="'+i+'"><div class="dhead"><span class="sw" style="background:var('+d.c+')"></span><span class="mono">'+d.d.toUpperCase()+'</span><h3>'+esc(d.t)+'</h3></div>'+
+      '<div class="dbtns">'+d.legs.map(function(L){return '<a class="gbtn" href="'+gm(L.o,L.w,L.x)+'" target="_blank" rel="noopener">'+esc(L.l)+' ↗</a>';}).join('')+'</div>'+
+      '<div class="dstops"><span class="area">Navigate to:</span>'+d.stops.map(function(k){return '<a href="'+go(k)+'" target="_blank" rel="noopener">'+esc(nm(k))+'</a>';}).join('')+'</div></article>';
+  }).join('');
+  document.getElementById('dirlist').addEventListener('mouseover',function(e){var c=e.target.closest('.dir');if(c&&sel<0){document.querySelectorAll('#tab-map .rt').forEach(function(l){l.setAttribute('opacity',+l.getAttribute('data-i')===+c.getAttribute('data-i')?'.95':'.25');});}});
+  document.getElementById('dirlist').addEventListener('mouseleave',function(){if(sel<0)hl(-1);});
+
+  // drive bars
+  var max=Math.max.apply(null,D.map(function(d){return d.hr;})),tot=D.reduce(function(a,d){return a+d.hr;},0);
+  function fmt(h){var H=Math.floor(h),M=Math.round((h-H)*60);return (H?H+' h ':'')+(M?M+' min':'');}
+  document.getElementById('drivebars').innerHTML=D.map(function(d){return '<div class="bar"><span class="mono">'+d.d+'</span><div class="track"><span style="width:'+Math.max(3,d.hr/max*100)+'%;background:var('+d.c+')"></span></div><span class="v">'+fmt(d.hr)+'</span></div>';}).join('')+
+    '<div class="bar total"><span class="mono">Total</span><div class="track"></div><span class="v">about '+Math.round(tot)+' h</span></div>';
+})();
+</script>
+<script>
+(function(){
+  var els=[].slice.call(document.querySelectorAll('[data-wiki]'));if(!els.length||!window.fetch)return;
+  var titles=[];els.forEach(function(e){var t=e.getAttribute('data-wiki');if(titles.indexOf(t)<0)titles.push(t);});
+  var url='https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&redirects=1&prop=pageimages&piprop=thumbnail%7Cname&pithumbsize=960&titles='+encodeURIComponent(titles.join('|'));
+  try{fetch(url).then(function(r){return r.json();}).then(function(j){
+    var q=j&&j.query;if(!q||!q.pages)return;var map={};
+    (q.normalized||[]).forEach(function(n){map[n.from]=n.to;});(q.redirects||[]).forEach(function(n){map[n.from]=n.to;});
+    var byT={};Object.keys(q.pages).forEach(function(k){var pg=q.pages[k];if(pg.thumbnail)byT[pg.title]=pg;});
+    els.forEach(function(el){var t=el.getAttribute('data-wiki');var t2=map[t]||t;t2=map[t2]||t2;var pg=byT[t2];if(!pg)return;
+      var img=new Image();img.alt=t;img.loading='lazy';img.decoding='async';
+      img.onload=function(){el.innerHTML='';el.classList.add('photo');el.appendChild(img);
+        var a=document.createElement('a');a.className='credit';a.href='https://en.wikipedia.org/wiki/File:'+encodeURIComponent(pg.pageimage||'');a.target='_blank';a.rel='noopener';a.textContent='Photo: Wikimedia';a.title='Photo source and license';el.appendChild(a);};
+      img.src=pg.thumbnail.source;});
+  }).catch(function(){});}catch(e){}
 })();
 </script>
 </body>
